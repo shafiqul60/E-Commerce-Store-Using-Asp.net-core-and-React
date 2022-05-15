@@ -16,7 +16,7 @@ const midLink = [
 ]
 const rightLink = [
     { title: 'login', path: '/login' },
-    { title: 'resister', path: '/resister' }
+    { title: 'register', path: '/register' }
 ]
 
 export default function Header({ darkMode, handleThemeChange }: Props) {

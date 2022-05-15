@@ -7,6 +7,8 @@ import Catalog from "../../features/catalog/catalog";
 import ProductDetail from "../../features/catalog/productdetail";
 import ContactPage from "../../features/contact/contactpage";
 import HomePage from "../../features/home/homepage";
+import LoginPage from "../../features/login/loginpage";
+import RegisterPage from "../../features/login/registerpage";
 import Header from "./header";
 
 
@@ -40,11 +42,12 @@ function App() {
         <Route path='/catalog/:id' element={<ProductDetail/>} />          
         <Route path='/about' element={<AboutPage/>} />          
         <Route path='/contact' element={<ContactPage/>} />          
+        <Route path='/login' element={<LoginPage/>} />          
+        <Route path='/register' element={<RegisterPage/>} />          
 
         </Routes>
       </Container>     
     </ThemeProvider>
   );
 }
-
 export default App;

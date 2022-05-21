@@ -14,11 +14,11 @@ export default function ProductCard({product}: Props){
             <CardHeader
                 avatar={
                     <Avatar sx={{bgcolor:'secondary.main'}}>
-                        {product.title.charAt(0).toUpperCase()}
+                        {product.name.charAt(0).toUpperCase()}
                     </Avatar>
                 }
                 
-                title = {product.title.substring(0,10)}
+                title = {product.name.substring(0,10)}
                 titleTypographyProps={
                     {
                         sx :{fontWeight: 'bold', color:'primary.main'}
@@ -30,8 +30,8 @@ export default function ProductCard({product}: Props){
       <CardActionArea>
         <CardMedia
           sx={{height: 140, backgroundSize:'contain'}}
-          image={product.image}
-          title={product.title}
+          image={product.imageUrl}
+          title={product.name}
         />
         <CardContent>
           <Typography color='secondary' gutterBottom variant="h5" component="h2">

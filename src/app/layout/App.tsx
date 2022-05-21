@@ -10,7 +10,9 @@ import HomePage from "../../features/home/homepage";
 import LoginPage from "../../features/login/loginpage";
 import RegisterPage from "../../features/login/registerpage";
 import Header from "./header";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ServerError from "../Error/ServerError";
 
 function App() {
 
@@ -33,6 +35,18 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <ToastContainer
+      className="toaster-container"
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={true}
+      newestOnTop={true}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+    />
     <CssBaseline/>
       <Header darkMode={darkMode} handleThemeChange={handleThemeChange}/> 
       <Container>
@@ -44,6 +58,7 @@ function App() {
         <Route path='/contact' element={<ContactPage/>} />          
         <Route path='/login' element={<LoginPage/>} />          
         <Route path='/register' element={<RegisterPage/>} />          
+        <Route path='/server-error' element={<ServerError/>} />          
 
         </Routes>
       </Container>     

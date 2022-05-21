@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@emotion/react";
 import { Container, createTheme, CssBaseline, Grid, Typography } from "@mui/material";
 import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route } from "react-router-dom";
 import AboutPage from "../../features/about/aboutpage";
 import Catalog from "../../features/catalog/catalog";
 import ProductDetail from "../../features/catalog/productdetail";
@@ -50,17 +50,17 @@ function App() {
     <CssBaseline/>
       <Header darkMode={darkMode} handleThemeChange={handleThemeChange}/> 
       <Container>
-        <Routes>
-        <Route path='/' element={<HomePage/>} />          
-        <Route path='/catalog' element={<Catalog/>} />
-        <Route path='/catalog/:id' element={<ProductDetail/>} />          
-        <Route path='/about' element={<AboutPage/>} />          
-        <Route path='/contact' element={<ContactPage/>} />          
-        <Route path='/login' element={<LoginPage/>} />          
-        <Route path='/register' element={<RegisterPage/>} />          
-        <Route path='/server-error' element={<ServerError/>} />          
+        
+        <Route exact path='/' component={HomePage} />          
+        <Route exact path='/catalog' component={Catalog} />
+        <Route path='/catalog/:id' component={ProductDetail} />          
+        <Route path='/about' component={AboutPage} />          
+        <Route path='/contact' component={ContactPage} />          
+        <Route path='/login' component={LoginPage} />          
+        <Route path='/register' component={RegisterPage} />          
+        <Route path='/server-error' component={ServerError} />          
 
-        </Routes>
+      
       </Container>     
     </ThemeProvider>
   );

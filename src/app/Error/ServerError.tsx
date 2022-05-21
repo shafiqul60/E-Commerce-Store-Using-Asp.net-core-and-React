@@ -1,9 +1,9 @@
 import { Button, Container, Divider, Paper, Typography } from "@mui/material";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 
 export default function ServerError() {
 
-    const history = useNavigate();
+    const history = useHistory();
 
     const {state} = useLocation() as any;
 
@@ -11,14 +11,14 @@ export default function ServerError() {
         <Container component={Paper}>
             {state?.error ? (
                 <>
-            <Typography variant='h3' gutterBottom>Server Error</Typography>
+            <Typography variant='h3' color='error' gutterBottom>{state.error.title}</Typography>
                 <Divider/>
                 <Typography>{state.error.detail || 'Internal Server Error'}</Typography>
                 </>
             ) : (
                 <Typography variant='h3' gutterBottom>Server Error</Typography>
             )}
-            <Button onClick={()=> history('/catalog')}>Go Back To Store</Button>
+            <Button onClick={()=> history.push('/catalog')}>Go Back To Store</Button>
         </Container>
     )
 }

@@ -3,23 +3,25 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import agent from "../../app/API/agent";
+import NotFound from "../../app/Error/NotFound";
+import Lodder from "../../app/layout/Lodder";
 import { Product } from "../../app/models/product";
 
 export default function ProductDetail() {
     const { id } = useParams<{id: string}>();
     const [product, setProduct] = useState<Product | null>(null);
-    const [lodder, setLodder] = useState(true);
+    const[loadding, setloadding] = useState(true);
     
     useEffect(() => {     
             agent.Catalog.details(parseInt(id!))
             .then(response => setProduct(response))
             .catch(error => console.log(error))
-            .finally(() => setLodder(false));
+            .finally(() => setloadding(false));
        
     }, [id]);
 
-    if (lodder) return <h4> Loading </h4>
-    if (product == null) return <h4> Product not Found </h4>
+    if (loadding) return <Lodder message="Loading Product..."/>
+    if (product == null) return <NotFound/>
 
     return (
         <>

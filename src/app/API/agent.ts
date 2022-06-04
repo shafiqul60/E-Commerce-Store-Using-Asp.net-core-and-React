@@ -1,11 +1,18 @@
 import axios, {AxiosError, AxiosResponse} from "axios";
+import { resolve } from "path";
 import { toast } from "react-toastify";
 import { history } from "../..";
-axios.defaults.baseURL = 'https://localhost:44355/api/';
 
+axios.defaults.baseURL = 'https://localhost:44355/api/';
+axios.defaults.withCredentials = true;
+
+function delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms));
+}
 const responseBody = (response: AxiosResponse) => response.data;
 
-axios.interceptors.response.use(response => {
+axios.interceptors.response.use(async response => {
+    await delay(500);
     return response
 }, (error : AxiosError) => {
 
@@ -54,6 +61,13 @@ const Catalog ={
     details: (id : number )=> requests.get(`products/${id}`)
 }
 
+const Basket ={
+    getBasket : (buyerId = '1') => requests.get(`basket/${buyerId}`),
+    addItem: (productId : number, quantity = 1) => requests.post(`basket?productId=${productId}&quantity=${quantity}`, {}),
+    removeItem: (productId : number, quantity = 1) => requests.delete(`basket?productId=${productId}&quantity=${quantity}`)
+
+}
+
 const TestError = {
     get400Error: () => requests.get('buggy/bad-request'),
     get401Error: () => requests.get('buggy/unauthorized'),
@@ -64,7 +78,8 @@ const TestError = {
 
 const agent = {
     Catalog,
-    TestError
+    TestError,
+    Basket
 }
 
 export default agent;

@@ -1,12 +1,22 @@
 import { Card, CardActionArea, CardMedia, CardContent, Typography, CardActions, Button, CardHeader, Avatar } from "@mui/material";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import agent from "../../app/API/agent";
 import { Product } from "../../app/models/product";
+
 
 interface Props{
     product: Product;
 }
 export default function ProductCard({product}: Props){
 
+  const[lodder, setlodder] = useState(false);
+
+  function handleAddItem(productId : number){
+    setlodder(true);
+    agent.Basket.addItem(productId).catch(error=> console.log(error)).finally(() => setlodder(false));
+  
+  }
    
     return(
         <>
@@ -43,7 +53,7 @@ export default function ProductCard({product}: Props){
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button  onClick={()=> handleAddItem(product.id)} size="small" color="primary">
           Add To Cart
         </Button>
         <Button component= {Link} to= {`/catalog/${product.id}`} size="small" color="primary">

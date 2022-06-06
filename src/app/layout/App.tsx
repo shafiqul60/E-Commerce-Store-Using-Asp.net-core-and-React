@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@emotion/react";
 import { Container, createTheme, CssBaseline, Grid, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import AboutPage from "../../features/about/aboutpage";
 import Catalog from "../../features/catalog/catalog";
@@ -14,10 +14,25 @@ import 'react-toastify/dist/ReactToastify.css';
 import ServerError from "../Error/ServerError";
 import NotFound from "../Error/NotFound";
 import { ToastContainer } from "react-toastify";
-import Basket from "../../features/basket/basket";
 import BasketPage from "../../features/basket/basket";
+import { useStoreContext } from "../Context/StoreContext";
+import { getCookie } from "../Util/Util";
+import agent from "../API/agent";
+import Lodder from "./Lodder";
 
 function App() {
+
+  const {setBasket} = useStoreContext();
+  
+  const [lodder, setlodder] = useState(false);
+
+  useEffect( ()=> {
+  const buyerId = getCookie('buyerId');
+  if(buyerId){
+    agent.Basket.getBasket().then(basket => setBasket(basket)).catch(error=> console.log(error)).finally(()=> setlodder(false));
+  }
+  },[setBasket])
+
 
   const [darkMode, setdarkMode]= useState(false);
 
@@ -35,6 +50,8 @@ function App() {
   function handleThemeChange (){
    setdarkMode(!darkMode);
   }
+
+  if(lodder) return <Lodder message='Initialising App...'/>
 
   return (
     <ThemeProvider theme={theme}>

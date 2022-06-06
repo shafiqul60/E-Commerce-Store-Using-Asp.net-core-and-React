@@ -11,6 +11,8 @@ import Lodder from "../../app/layout/Lodder";
 import { Basket } from "../../app/models/Basket";
 import { IconButton, Typography } from '@mui/material';
 import { Delete } from '@mui/icons-material';
+import { getCookie } from '../../app/Util/Util';
+
 
 export default function BasketPage() {
     const [lodder, setlodder] = useState(false);
@@ -19,7 +21,10 @@ export default function BasketPage() {
 
     useEffect(() => {
         setlodder(true);
+        const buyerId = getCookie('buyerId');
+        if(buyerId){
         agent.Basket.getBasket().then(basket => setBasket(basket)).catch(error => console.log(error)).finally(() => setlodder(false));
+    }
     }, []);
 
     if (lodder) return <Lodder message="Loading Basket Item ..." />
